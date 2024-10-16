@@ -7,9 +7,11 @@ load_dotenv()
 
 class Whatsappbot:
 
-    def __init__(self, WHATSAPP_BUSINESS_PHONE_NUMBER_ID, access_token):
+    def __init__(self, WHATSAPP_BUSINESS_PHONE_NUMBER_ID, access_token, number_recipient):
         self.WHATSAPP_BUSINESS_PHONE_NUMBER_ID = WHATSAPP_BUSINESS_PHONE_NUMBER_ID
         self.access_token = access_token
+        self.number_recipient = number_recipient
+
 
     def SendMessage(self):
 
@@ -24,7 +26,7 @@ class Whatsappbot:
         payload = {
           "messaging_product": "whatsapp",
           "recipient_type": "individual",
-          "to": "f",
+          "to": f"{self.number_recipient}",
           "type": "text",
           "text": {
             "body": "Hi we gonna response ASAP"
@@ -44,6 +46,7 @@ class Whatsappbot:
 # Replace with your WhatsApp Business Phone Number ID and access token
 whatsapp_id = os.getenv("phone_number_id")
 access_token = os.getenv("access_token")
+number_recipient = os.getenv("number_recipient")
 
-bot = Whatsappbot(whatsapp_id, access_token)
+bot = Whatsappbot(whatsapp_id, access_token, number_recipient)
 bot.SendMessage()
